@@ -2,23 +2,35 @@ import prisma from "../../config/prisma.config";
 import { comparePassword } from "../../utils/password.utils";
 
 export async function registerUser(payload: any) {
-  const merchant = await prisma.user.create({
+  const user = await prisma.user.create({
     data: payload,
   });
 
-  return merchant;
+  return user;
 }
 
 export async function loginUser(username: string, password: string) {
-  const merchant = await prisma.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
       username,
     },
   });
 
-  if (!merchant) return false;
-  const isCorrectPassword = await comparePassword(password, merchant.password);
-  if (!isCorrectPassword) return false;
+  if (!user) return null;
+  const isCorrectPassword = await comparePassword(password, user.password);
+  if (!isCorrectPassword) return null;
 
-  return true;
+  return user;
+}
+
+export async function getUsers(id: number) {
+  const users = await prisma.user.findMany({
+    where: {
+      id: {
+        not: id,
+      },
+    },
+  });
+
+  return users;
 }

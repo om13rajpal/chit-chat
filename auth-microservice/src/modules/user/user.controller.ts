@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { IUser } from "./user.interface";
 import { errorResponse, successResponse } from "../../utils/response.utils";
-import { loginUser, registerUser } from "./user.service";
+import { getUsers, loginUser, registerUser } from "./user.service";
 import welcomeQueue from "../../config/queue.config";
 import { hashPassword } from "../../utils/password.utils";
 import { generateLoginToken } from "../../utils/token.utils";
@@ -44,19 +44,34 @@ export async function LoginUser(req: Request, res: Response) {
   const { username, password } = req.body;
 
   try {
-    const isValidCredential = loginUser(username, password);
-    if (!isValidCredential) {
+    const user = await loginUser(username, password);
+    if (!user) {
       res.status(403).json(errorResponse("Invalid credentials"));
       return;
     }
 
     const userToken = generateLoginToken(username);
 
-    res
-      .status(200)
-      .json(successResponse("User logged in successfully", userToken));
+    const data = {
+      token: userToken,
+      user,
+    };
+
+    res.status(200).json(successResponse("User logged in successfully", data));
   } catch (error) {
     console.error("Error logging in the user", error);
     res.status(500).json(errorResponse("Error logging in the user", error));
+  }
+}
+
+export async function GetUsers(req: Request, res: Response) {
+  const id = parseInt(req.params.id, 10);
+  try {
+    const users = await getUsers(id);
+
+    res.status(200).json(successResponse("Users fetched successfully", users));
+  } catch (error) {
+    console.error("Error getting users", error);
+    res.status(500).json(errorResponse("Error gettings users", error));
   }
 }
