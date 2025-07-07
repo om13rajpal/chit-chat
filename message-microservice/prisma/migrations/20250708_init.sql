@@ -1,0 +1,7 @@
+CREATE TABLE "Message" (
+  "id" SERIAL PRIMARY KEY,
+  "senderId" INTEGER NOT NULL,
+  "receiverId" INTEGER NOT NULL,
+  "content" TEXT NOT NULL,
+  "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP
+);

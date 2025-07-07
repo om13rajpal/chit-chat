@@ -1,0 +1,31 @@
+{
+  "name": "message-microservice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon --exec ts-node src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "^6.10.1",
+    "dotenv": "^17.0.1",
+    "express": "^5.1.0",
+    "morgan": "^1.10.0",
+    "prisma-client": "^0.0.0",
+    "prom-client": "^15.1.3",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^5.0.3",
+    "@types/morgan": "^1.9.10",
+    "@types/ws": "^8.18.1",
+    "prisma": "^6.10.1"
+  }
+}
