@@ -37,9 +37,9 @@ dependencies:
   flutter_secure_storage: ^9.2.4
   hive: ^2.2.3
   dio: ^5.8.0+1
-  web_socket_client: ^0.2.1
   flutter_riverpod: ^2.6.1
   hive_flutter: ^1.1.0
+  web_socket_channel: ^3.0.3
 
 dev_dependencies:
   flutter_test:

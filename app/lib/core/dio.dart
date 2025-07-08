@@ -31,3 +31,15 @@ class DioClient {
     );
   }
 }
+
+class DioChatClient {
+  final Dio dio;
+  DioChatClient()
+    : dio = Dio(
+        BaseOptions(
+          baseUrl: chatUrl,
+          receiveTimeout: const Duration(seconds: 10),
+          sendTimeout: const Duration(seconds: 10),
+        ),
+      );
+}
